@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.FairShare" parent="Theme.Material3.DayNight">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!-- Enable Action Bar Overlay -->
+        <item name="android:windowActionBarOverlay">true</item>
+
+        <!-- Apply the Transparent Action Bar Theme -->
+        <item name="actionBarStyle">@style/TransparentActionBar</item>
+    </style>
+
+    <!-- Transparent Action Bar Theme -->
+    <style name="TransparentActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="background">@color/button_color</item>
+        <item name="backgroundStacked">@color/button_color</item>
+        <item name="backgroundSplit">@color/button_color</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <!-- Application theme inheriting from Base Theme -->
+    <style name="Theme.FairShare" parent="Base.Theme.FairShare" />
+</resources>
