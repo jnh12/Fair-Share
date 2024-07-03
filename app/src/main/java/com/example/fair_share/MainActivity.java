@@ -2,7 +2,6 @@ package com.example.fair_share;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import androidx.annotation.NonNull;
@@ -12,42 +11,81 @@ import androidx.camera.core.CameraSelector;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.util.concurrent.ListenableFuture;
 import java.util.concurrent.ExecutionException;
 import android.Manifest;
-import androidx.drawerlayout.widget.DrawerLayout;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends AppCompatActivity {
     private PreviewView previewView;
     private static final int REQUEST_CAMERA_PERMISSION = 1001;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    private FloatingActionButton dropDown_button;
+    private FloatingActionButton cancel_button;
+    private FloatingActionButton info_button;
+    private FloatingActionButton settings_button;
+    private FloatingActionButton recent_button;
+    private ImageButton startCapture_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //initialising elements
+        startCapture_button = findViewById(R.id.startCapture_button);
+        recent_button = findViewById(R.id.recent_button);
+        cancel_button = findViewById(R.id.cancel_button);
+        dropDown_button = findViewById(R.id.dropdown_button);
+        info_button = findViewById(R.id.info_button);
+        settings_button = findViewById(R.id.settings_button);
+
         //set camera permissions
         cameraPermissions();
 
-        // Initialize navigation drawer
-        initDrawer();
-
+        //onClick methods
+        startCapture_button.setOnClickListener(this::handleButtonClick);
+        recent_button.setOnClickListener(this::handleButtonClick);
+        cancel_button.setOnClickListener(this::handleButtonClick);
+        dropDown_button.setOnClickListener(this::handleButtonClick);
+        info_button.setOnClickListener(this::handleButtonClick);
+        settings_button.setOnClickListener(this::handleButtonClick);
     }
 
 
+    //ALL ONCLICK EVENTS HERE
+    private void handleButtonClick(View view) {
+        int id = view.getId();
 
+        if (id == R.id.startCapture_button) {
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
         }
-        return super.onOptionsItemSelected(item);
+        else if (id == R.id.recent_button) {
+
+        }
+        else if (id == R.id.cancel_button) {
+            dropDown_button.setVisibility(View.VISIBLE);
+            cancel_button.setVisibility(View.INVISIBLE);
+            settings_button.setVisibility(View.INVISIBLE);
+            info_button.setVisibility(View.INVISIBLE);
+        }
+        else if (id == R.id.dropdown_button) {
+            dropDown_button.setVisibility(View.INVISIBLE);
+            cancel_button.setVisibility(View.VISIBLE);
+            settings_button.setVisibility(View.VISIBLE);
+            info_button.setVisibility(View.VISIBLE);
+        }
+        else if (id == R.id.info_button) {
+
+        }
+        else if (id == R.id.settings_button) {
+
+        }
     }
 
 
@@ -79,16 +117,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
         cameraProvider.bindToLifecycle(this, cameraSelector, preview);
-    }
-
-    void initDrawer(){
-
-        DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     void cameraPermissions(){
