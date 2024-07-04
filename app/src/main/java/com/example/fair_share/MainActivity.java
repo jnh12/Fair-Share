@@ -1,5 +1,6 @@
 package com.example.fair_share;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -63,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
         int id = view.getId();
 
         if (id == R.id.startCapture_button) {
-
+            Intent intent = new Intent(this, takeCameraView.class);
+            startActivity(intent);
         }
         else if (id == R.id.recent_button) {
 
