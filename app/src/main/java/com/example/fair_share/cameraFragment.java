@@ -1,4 +1,3 @@
-// CameraFragment.java
 package com.example.fair_share;
 
 import android.Manifest;

@@ -44,6 +44,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.1.0")
     implementation("androidx.camera:camera-view:1.1.0")
     implementation("androidx.camera:camera-extensions:1.1.0")
+    implementation(libs.activity)
 
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")
