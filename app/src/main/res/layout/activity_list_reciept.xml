@@ -7,17 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".listReceipt">
 
+    <View
+        android:id="@+id/headerBar"
+        android:layout_width="413dp"
+        android:layout_height="72dp"
+        android:background="#DBCECE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="104dp"
-        android:layout_height="62dp"
+        android:layout_width="75dp"
+        android:layout_height="42dp"
         android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.050000012"
+        app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/logotext" />
 
     <com.shawnlin.numberpicker.NumberPicker
@@ -30,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974"
+        app:layout_constraintVertical_bias="0.379"
         app:np_dividerColor="@android:color/black"
         app:np_height="180dp"
         app:np_max="10"
@@ -42,5 +51,14 @@
         app:np_value="5"
         app:np_width="64dp" />
 
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
