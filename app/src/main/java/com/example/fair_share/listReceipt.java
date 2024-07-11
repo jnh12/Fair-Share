@@ -20,26 +20,11 @@ public class listReceipt extends AppCompatActivity {
         //initialize views
         buttonContainer = findViewById(R.id.buttonContainer);
 
+        // gets values from numberpicker in takeCameraView
+        int selectedValue = getIntent().getIntExtra("selectedValue", 4);
+
         //start number picker
-        NumberPicker();
-    }
-
-    public void NumberPicker(){
-        NumberPicker numberPicker = findViewById(R.id.number_picker);
-
-        numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(10);
-        numberPicker.setValue(4);
-
-        //values change while scrolling
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                updateButtons(newVal);
-            }
-        });
-
-        updateButtons(numberPicker.getValue());
+        updateButtons(selectedValue);
     }
 
     private void updateButtons(int count) {
@@ -47,14 +32,25 @@ public class listReceipt extends AppCompatActivity {
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int screenWidth = displayMetrics.widthPixels;
-        int buttonWidth = screenWidth / count;
+        int spacingInPixels = (int) (2 * displayMetrics.density);
+        int totalSpacing = spacingInPixels * (count - 1);
+        int buttonWidth = (screenWidth - totalSpacing) / count;
 
         for (int i = 0; i < count; i++) {
             Button button = new Button(this);
-            button.setText("Button " + (i + 1));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(buttonWidth, LinearLayout.LayoutParams.WRAP_CONTENT);
+            button.setBackgroundColor(getResources().getColor(R.color.button_color));
+            button.setText("" + (i + 1));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(buttonWidth, 300);
+
+            if (i < count - 1) {
+                params.setMargins(0, 0, spacingInPixels, 0);
+            }
+
             button.setLayoutParams(params);
             buttonContainer.addView(button);
         }
     }
+
+
 }
