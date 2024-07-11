@@ -30,11 +30,6 @@ public class takeCameraView extends AppCompatActivity {
 
         // Initialize NumberPicker
         NumberPicker();
-
-        //initialize onClick methods
-        startCapture_button.setOnClickListener(this::handleButtonClick);
-
-
     }
 
     public void startCameraFragment(){
@@ -50,7 +45,7 @@ public class takeCameraView extends AppCompatActivity {
         numberPicker.setMaxValue(10);
         numberPicker.setValue(4);
 
-        //values change while scrolling
+        //values that change while scrolling
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

@@ -2,7 +2,6 @@ package com.example.fair_share;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import com.shawnlin.numberpicker.NumberPicker;
 
 import android.util.DisplayMetrics;
 import android.widget.Button;
