@@ -37,8 +37,11 @@ public class listReceipt extends AppCompatActivity {
 
         for (int i = 0; i < count; i++) {
             Button button = new Button(this);
-            button.setBackgroundColor(getResources().getColor(R.color.button_color));
+            button.setBackgroundColor(getResources().getColor(R.color.fairshare_MAIN));
             button.setText("" + (i + 1));
+            button.setTextSize(25);
+            button.setTextColor(getResources().getColor(R.color.white));
+
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(buttonWidth, 300);
 

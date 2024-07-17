@@ -11,10 +11,12 @@
         android:id="@+id/headerBar"
         android:layout_width="413dp"
         android:layout_height="72dp"
-        android:background="#DBCECE"
+        android:background="@color/fairshare_FOURTH"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -27,9 +29,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/logotext" />
-
-
+        app:srcCompat="@drawable/logotext"
+        app:tint="@color/fairshare_MAIN"/>
 
     <LinearLayout
         android:id="@+id/buttonContainer"

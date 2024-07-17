@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="fairshare_THIRD_60"></color>
-    <color name="fairshare_SECONDARY_30"></color>
-    <color name="fairshare_MAIN_10"></color>
-    <color name="fairshare_TINT_CAMERAVIEW_MAIN"></color>
-    <color name="fairshare_TINT_CAMERAVIEW_CAPTURE"></color>
+    <color name="fairshare_FOURTH">#EFDBCB</color>
+    <color name="fairshare_THIRD">#4BB4DE</color>
+    <color name="fairshare_SECONDARY">#3B8AC4</color>
+    <color name="fairshare_MAIN">#345DA7</color>
+    <color name="fairshare_TINT_CAMERAVIEW_MAIN">#CE000000</color>
+    <color name="fairshare_TINT_CAMERAVIEW_CAPTURE">#8F000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

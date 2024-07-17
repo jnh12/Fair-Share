@@ -17,7 +17,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#CE000000"
+        android:background="@color/fairshare_TINT_CAMERAVIEW_MAIN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,27 +31,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        app:backgroundTint="@color/fairshare_FOURTH"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.887"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.059"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        app:tint="@color/fairshare_MAIN"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/dropdown_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:backgroundTint="#BBB6B6"
+        app:backgroundTint="@color/fairshare_FOURTH"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.887"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.059"
-        app:srcCompat="@android:drawable/ic_menu_more" />
+        app:srcCompat="@android:drawable/ic_menu_more"
+        app:tint="@color/fairshare_MAIN"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/info_button"
@@ -59,12 +62,14 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:visibility="invisible"
+        app:backgroundTint="@color/fairshare_FOURTH"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cancel_button"
         app:layout_constraintStart_toStartOf="@+id/cancel_button"
         app:layout_constraintTop_toBottomOf="@+id/cancel_button"
         app:layout_constraintVertical_bias="0.039"
-        app:srcCompat="@android:drawable/ic_menu_info_details" />
+        app:srcCompat="@android:drawable/ic_menu_info_details"
+        app:tint="@color/fairshare_MAIN" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/settings_button"
@@ -72,12 +77,14 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:visibility="invisible"
+        app:backgroundTint="@color/fairshare_FOURTH"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cancel_button"
         app:layout_constraintStart_toStartOf="@+id/cancel_button"
         app:layout_constraintTop_toBottomOf="@+id/info_button"
         app:layout_constraintVertical_bias="0.03"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+        app:srcCompat="@android:drawable/ic_menu_manage"
+        app:tint="@color/fairshare_MAIN"/>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -90,19 +97,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.050000012"
-        app:srcCompat="@drawable/logotext" />
+        app:srcCompat="@drawable/logotext"
+        app:tint="@color/fairshare_MAIN" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/recent_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:backgroundTint="#BCB7B7"
+        app:backgroundTint="@color/fairshare_FOURTH"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startCapture_button"
-        app:srcCompat="@android:drawable/ic_menu_recent_history" />
+        app:srcCompat="@android:drawable/ic_menu_recent_history"
+        app:tint="@color/fairshare_MAIN"/>
 
     <ImageButton
         android:id="@+id/startCapture_button"
@@ -117,7 +126,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.783"
-        app:tint="#674FA2" />
+        app:tint="@color/fairshare_MAIN" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
