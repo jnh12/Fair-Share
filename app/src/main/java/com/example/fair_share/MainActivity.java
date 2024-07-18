@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if (id == R.id.settings_button) {
-
+            Intent intent = new Intent(this, settingsActivity.class);
+            startActivity(intent);
         }
     }
 
