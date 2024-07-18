@@ -45,6 +45,9 @@ dependencies {
     implementation("androidx.camera:camera-view:1.1.0")
     implementation("androidx.camera:camera-extensions:1.1.0")
 
+    //Number picker dep
+    implementation("io.github.ShawnLin013:number-picker:2.4.13")
+
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
