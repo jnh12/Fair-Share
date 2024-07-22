@@ -16,7 +16,7 @@ public class recentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recents_activity);
+        setContentView(R.layout.activity_recents);
 
         linearLayout = findViewById(R.id.linearLayout);
         addRestaurantsToLayout();
@@ -53,6 +53,8 @@ public class recentsActivity extends AppCompatActivity {
                 R.drawable.rec3
         };
 
+
+        //loops through the items and displays them on screen
         for (int i = 0; i < restaurantNames.length; i++) {
             View itemView = inflater.inflate(R.layout.item_restaurant, linearLayout, false);
 
