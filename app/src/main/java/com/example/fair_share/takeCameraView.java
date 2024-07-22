@@ -13,6 +13,7 @@ import com.shawnlin.numberpicker.NumberPicker;
 public class takeCameraView extends AppCompatActivity {
 
     private int selectedValue = 4; // Default value
+    private cameraFragment cameraFragmentInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +60,10 @@ public class takeCameraView extends AppCompatActivity {
         int id = view.getId();
 
         if (id == R.id.startCapture_button) {
-            Intent intent = new Intent(this, listReceipt.class);
-            intent.putExtra("selectedValue", selectedValue);
-            startActivity(intent);
+//            Intent intent = new Intent(this, listReceipt.class);
+//            intent.putExtra("selectedValue", selectedValue);
+//            startActivity(intent);
+            cameraFragmentInstance.captureImageAndExtractText();
         }
     }
-
 }
