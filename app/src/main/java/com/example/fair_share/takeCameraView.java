@@ -34,8 +34,9 @@ public class takeCameraView extends AppCompatActivity {
     }
 
     public void startCameraFragment(){
+        cameraFragmentInstance = new cameraFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.camera_container, new cameraFragment());
+        transaction.replace(R.id.camera_container, cameraFragmentInstance);
         transaction.commit();
     }
 
