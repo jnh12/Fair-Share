@@ -24,6 +24,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.TextRecognition;
@@ -120,9 +126,39 @@ public class cameraFragment extends Fragment {
                 .addOnSuccessListener(result -> {
                     String resultText = result.getText();
                     Log.d("OCR Result", resultText);
+                    sendTextToBackend(resultText);
                 })
                 .addOnFailureListener(e -> {
                     e.printStackTrace();
                 });
     }
+
+    private void sendTextToBackend(String text) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.10:8000/") // Use your development machine's IP address
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+        TextData textData = new TextData(text);
+
+        apiService.sendText(textData).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("API Response", "Text sent successfully");
+                } else {
+                    Log.e("API Response", "Error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("API Error", "Failed to send text", t);
+            }
+        });
+    }
+
+
+
 }

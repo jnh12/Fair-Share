@@ -38,6 +38,10 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.drawerlayout:drawerlayout:1.1.1")
 
+    //retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
     // CameraX dependencies
     implementation("androidx.camera:camera-core:1.1.0")
     implementation("androidx.camera:camera-camera2:1.1.0")
