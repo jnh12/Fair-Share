@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if (id == R.id.recent_button) {
-            Intent intent = new Intent(this, recentsActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(this, recentsActivity.class);
+            //startActivity(intent);
         }
         else if (id == R.id.cancel_button) {
             dropDown_button.setVisibility(View.VISIBLE);
@@ -70,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
             info_button.setVisibility(View.VISIBLE);
         }
         else if (id == R.id.info_button) {
-            Intent intent = new Intent(this, infoActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(this, infoActivity.class);
+            //startActivity(intent);
         }
         else if (id == R.id.settings_button) {
-            Intent intent = new Intent(this, settingsActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(this, settingsActivity.class);
+            //startActivity(intent);
         }
     }
 

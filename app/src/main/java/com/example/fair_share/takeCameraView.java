@@ -23,14 +23,12 @@ public class takeCameraView extends AppCompatActivity {
         //start Camera View
         startCameraFragment();
 
-        //initialize buttons
+        //initialize Componets
         ImageButton startCapture_button = findViewById(R.id.startCapture_button);
+        NumberPicker();
 
         // Initialize onClick methods
         startCapture_button.setOnClickListener(this::handleButtonClick);
-
-        // Initialize NumberPicker
-        NumberPicker();
     }
 
     public void startCameraFragment(){
@@ -64,7 +62,7 @@ public class takeCameraView extends AppCompatActivity {
 //            Intent intent = new Intent(this, listReceipt.class);
 //            intent.putExtra("selectedValue", selectedValue);
 //            startActivity(intent);
-            cameraFragmentInstance.captureImageAndExtractText();
+                cameraFragmentInstance.takePicture();
         }
     }
 }

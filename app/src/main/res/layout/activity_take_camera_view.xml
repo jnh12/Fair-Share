@@ -38,20 +38,6 @@
         app:layout_constraintVertical_bias="0.783"
         app:tint="@color/fairshare_MAIN" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="384dp"
-        android:layout_height="401dp"
-        android:background="#00FFFFFF"
-        android:scaleY="1.07"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18"
-        app:srcCompat="@drawable/cameraframe"
-        app:tint="#5B000000" />
-
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/number_picker"
         android:layout_width="90dp"
