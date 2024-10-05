@@ -62,7 +62,7 @@ public class takeCameraView extends AppCompatActivity {
 //            Intent intent = new Intent(this, listReceipt.class);
 //            intent.putExtra("selectedValue", selectedValue);
 //            startActivity(intent);
-                cameraFragmentInstance.takePicture();
+                cameraFragmentInstance.captureImageAndExtractText();
         }
     }
 }

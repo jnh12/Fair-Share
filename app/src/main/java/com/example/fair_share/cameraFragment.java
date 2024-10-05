@@ -24,18 +24,32 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.text.TextRecognition;
-import com.google.mlkit.vision.text.TextRecognizer;
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutionException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class cameraFragment extends Fragment {
     private PreviewView previewView;
     private ImageCapture imageCapture;
     private static final int REQUEST_CAMERA_PERMISSION = 1001;
+    private OkHttpClient client = new OkHttpClient();
+
 
     @Nullable
     @Override
@@ -84,9 +98,28 @@ public class cameraFragment extends Fragment {
             imageCapture.takePicture(ContextCompat.getMainExecutor(requireContext()), new ImageCapture.OnImageCapturedCallback() {
                 @Override
                 public void onCaptureSuccess(@NonNull ImageProxy image) {
-                    @SuppressLint("UnsafeExperimentalUsageError") Bitmap bitmap = imageProxyToBitmap(image);
-                    InputImage inputImage = InputImage.fromBitmap(bitmap, image.getImageInfo().getRotationDegrees());
-                    extractTextFromImage(inputImage);
+                    @SuppressLint("UnsafeExperimentalUsageError")
+                    Bitmap bitmap = imageProxyToBitmap(image);
+
+                    File imageFile = saveBitmapToFile(bitmap);
+
+                    if (imageFile != null) {
+                        uploadReceiptImage(imageFile, new OCRCallback() {
+                            @Override
+                            public void onSuccess(String result) {
+                                sendTextToBackend(result);
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                System.err.println("OCR Error: " + error);
+                            }
+                        });
+                    }
+
+                    byte[] imageData = bitmapToByteArray(bitmap);
+                    sendImageToBackend(imageData);
+
                     image.close();
                 }
 
@@ -98,6 +131,110 @@ public class cameraFragment extends Fragment {
         }
     }
 
+    private void sendTextToBackend(String resultText) {
+        new Thread(() -> {
+            try {
+                URL url = new URL("http://192.168.100.5:8080/api/ocr/saveText");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                String jsonInputString = "\"" + resultText + "\"";
+                try (OutputStream os = conn.getOutputStream()) {
+                    byte[] input = jsonInputString.getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                }
+
+                int code = conn.getResponseCode();
+                Log.d("Backend TEXT Response", "Code: " + code);
+
+                conn.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void sendImageToBackend(byte[] resultImage) {
+        new Thread(() -> {
+            try {
+                URL url = new URL("http://192.168.100.5:8080/api/ocr/saveImage");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/octet-stream"); // Set to octet-stream for binary data
+                conn.setDoOutput(true);
+
+                // Send the byte array directly
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(resultImage); // Send the byte array
+                }
+
+                // Read the response code
+                int code = conn.getResponseCode();
+                Log.d("Backend IMAGE Response", "Code: " + code);
+
+                conn.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
+    }
+
+    private File saveBitmapToFile(Bitmap bitmap) {
+        File imageFile = new File(requireContext().getExternalFilesDir(null), "captured_image.jpg");
+        try (FileOutputStream out = new FileOutputStream(imageFile)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); // Save the bitmap as a JPEG file
+            return imageFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void uploadReceiptImage(File imageFile, OCRCallback callback) {
+        MediaType mediaType = MediaType.parse("image/jpeg");
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("api_key", "TEST") // Your API key
+                .addFormDataPart("recognizer", "auto") // Recognizer type
+                .addFormDataPart("ref_no", "ocr_java_123") // Reference number (optional)
+                .addFormDataPart("file", imageFile.getName(), RequestBody.create(mediaType, imageFile))
+                .build();
+
+        Request request = new Request.Builder()
+                .url("https://ocr.asprise.com/api/v1/receipt")
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // Call the callback with an error message
+                callback.onError(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    // Call the callback with the result
+                    callback.onSuccess(responseBody);
+                } else {
+                    // Call the callback with an error message
+                    callback.onError("Request failed: " + response.message());
+                }
+            }
+        });
+    }
+
     private Bitmap imageProxyToBitmap(ImageProxy image) {
         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
         byte[] bytes = new byte[buffer.remaining()];
@@ -105,16 +242,17 @@ public class cameraFragment extends Fragment {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
-    private void extractTextFromImage(InputImage image) {
-        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
-        recognizer.process(image)
-                .addOnSuccessListener(result -> {
-                    String resultText = result.getText();
-                    Log.d("OCR Result", resultText);
-                })
-                .addOnFailureListener(e -> {
-                    e.printStackTrace();
-                });
-    }
-
+    //    private void extractTextFromImage(InputImage image) {
+//        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+//        recognizer.process(image)
+//                .addOnSuccessListener(result -> {
+//                    String resultText = result.getText();
+//                    Log.d("OCR Result", resultText);
+//                    sendTextToBackend(resultText);
+//
+//                })
+//                .addOnFailureListener(e -> {
+//                    e.printStackTrace();
+//                });
+//    }
 }
